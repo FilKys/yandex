@@ -38,7 +38,14 @@ public class Main{
                         "0%2591%25D1%2583%25D0%25BA%25D0%25B8%25D1%2580%25D0%25B5%25D0%25B2%25D0%25B0%252C%252015&z=13");
                 webElements = driver.findElements(By.className("driving-route-view__route-title-primary"));
                 for (WebElement time : webElements) {
-                    res.write(time.getText() + "\n");
+                    System.out.println(time);
+//                    res.write(time.getText() + "\n");
+                }
+                driver.get("https://yandex.ru/maps/50/perm/?ll=56.237970%2C58.002414&mode=routes&rtd=1&rtext=57.986515%2C56.291389~58.009079%2C56.187823&rtn=1&rtt=auto&ruri=~&z=13");
+                webElements = driver.findElements(By.className("driving-route-view__route-title-primary"));
+                for (WebElement time : webElements) {
+                    System.out.println(time);
+//                    res.write(time.getText() + "\n");
                 }
                 driver.close();
             } catch (IOException e) {
