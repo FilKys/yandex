@@ -28,25 +28,19 @@ public class Main{
                 if(webElements.get(1).getText().contains("дождь")||webElements.get(0).getText().contains("снег")){
                     rain=true;
                 }
-                driver.get("https://yandex.ru/maps/50/perm/?ll=56.184412%2C57.984972&mode=routes&rtext=" +
-                        "57.961349%2C56.172858~58.008390%2C56.188022&rtt=auto&ruri=ymapsbm1%3A%2F%2Fgeo%3Fll%3D56.173%252C57.961%26spn%3D0.001%252C0.001%26text" +
-                        "%3D%25D0%25A0%25D0%25BE%25D1%2581%25D1%2581%25D0%25B8%25D1%258F%252C%2520%25D0%259F%25D0%25B5%25D1%2580%25D0%25BC%25D1%258C%252C%2520%" +
-                        "25D1%2583%25D0%25BB%25D0%25B8%25D1%2586%25D0%25B0%2520%25D0%2590%25D1%2580%25D1%2585%25D0%25B8%25D1%2582%25D0%25B5%25D0%25BA%25D1%2582" +
-                        "%25D0%25BE%25D1%2580%25D0%25B0%2520%25D0%25A1%25D0%25B2%25D0%25B8%25D1%258F%25D0%25B7%25D0%25B5%25D0%25B2%25D0%25B0%252C%252046%252F2~" +
-                        "ymapsbm1%3A%2F%2Fgeo%3Fll%3D56.188%252C58.008%26spn%3D0.001%252C0.001%26text%3D%25D0%25A0%25D0%25BE%25D1%2581%25D1%2581%25D0%25B8%25D1" +
-                        "%258F%252C%2520%25D0%259F%25D0%25B5%25D1%2580%25D0%25BC%25D1%258C%252C%2520%25D1%2583%25D0%25BB%25D0%25B8%25D1%2586%25D0%25B0%2520%25D" +
-                        "0%2591%25D1%2583%25D0%25BA%25D0%25B8%25D1%2580%25D0%25B5%25D0%25B2%25D0%25B0%252C%252015&z=13");
+                driver.get("https://www.google.ru/maps/dir/57.9614163,56.1745576/58.0087631,56.1879164/@57.9847595,56.138158,13z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
+               webElements = driver.findElements(By.className("section-trip-summary-title"));
+                for (WebElement time : webElements) {
+                    System.out.println(time);
+//                    res.write(time.getText() + "\n");
+                }
+                driver.get("https://www.google.ru/maps/dir/57.986497,56.2914518/58.0087631,56.1879164/@58.0014633,56.1731455,12z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
                 webElements = driver.findElements(By.className("driving-route-view__route-title-primary"));
                 for (WebElement time : webElements) {
                     System.out.println(time);
 //                    res.write(time.getText() + "\n");
                 }
-                driver.get("https://yandex.ru/maps/50/perm/?ll=56.237970%2C58.002414&mode=routes&rtd=1&rtext=57.986515%2C56.291389~58.009079%2C56.187823&rtn=1&rtt=auto&ruri=~&z=13");
-                webElements = driver.findElements(By.className("driving-route-view__route-title-primary"));
-                for (WebElement time : webElements) {
-                    System.out.println(time);
-//                    res.write(time.getText() + "\n");
-                }
+                driver.get("https://www.google.ru/maps/dir/58.0338697,56.3240669/58.0087631,56.1879164/@58.0209894,56.1854751,12z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
                 driver.close();
             } catch (IOException e) {
                 e.printStackTrace();
