@@ -31,6 +31,7 @@ public class Main {
         WebElement webElement;
         WebDriver driver;
         while (true) {
+            System.setProperty("webdriver.chrome.driver", "//home/room/chromedriver");
             driver = new ChromeDriver();
             try {
                 lastcell = 0;
@@ -40,7 +41,7 @@ public class Main {
                 lastRow = sheet.getLastRowNum();
                 row = sheet.createRow(lastRow + 1);
                 boolean rain = false;
-                System.setProperty("webdriver.chrome.driver", "/Users/room/Desktop/git/yandex/chromedriver");
+//                System.setProperty("webdriver.chrome.driver", "/Users/room/Desktop/git/yandex/chromedriver");
                 String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
                 row.createCell(lastcell).setCellValue(timeStamp);
                 System.out.println(timeStamp);
@@ -105,7 +106,7 @@ public class Main {
                 res.write(outXlsx);
                 outXlsx.close();
                 res.close();
-                driver.close();
+                 driver.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 driver.close();
