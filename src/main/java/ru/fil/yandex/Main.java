@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -30,9 +31,11 @@ public class Main {
         List<WebElement> webElements;
         WebElement webElement;
         WebDriver driver;
+        ChromeOptions opt = new ChromeOptions();
+        opt.addArguments("headless");
         while (true) {
             System.setProperty("webdriver.chrome.driver", "//home/room/chromedriver");
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(opt);
             try {
                 lastcell = 0;
                 inputXlsx = new FileInputStream("res.xlsx");
