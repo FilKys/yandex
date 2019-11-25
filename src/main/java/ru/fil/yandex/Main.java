@@ -26,16 +26,18 @@ public class Main {
         FileOutputStream outXlsx;
         XSSFWorkbook res;
         XSSFSheet sheet;
-        int lastRow, lastcell;
+        int lastRow, lastcell,i=0;
         Row row;
         List<WebElement> webElements;
         WebElement webElement;
         WebDriver driver;
         ChromeOptions opt = new ChromeOptions();
         opt.addArguments("headless");
+        boolean rain = false;
         while (true) {
-            System.setProperty("webdriver.chrome.driver", "//home/room/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "/home/samsung/chromedriver");
             driver = new ChromeDriver(opt);
+//            driver = new ChromeDriver();
             try {
                 lastcell = 0;
                 inputXlsx = new FileInputStream("res.xlsx");
@@ -62,9 +64,12 @@ public class Main {
                     row.createCell(++lastcell).setCellValue(0);
                 }
                 driver.get("https://www.google.ru/maps/dir/57.9614163,56.1745576/58.0087631,56.1879164/@57.9847595,56.138158,13z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
+                Thread.sleep(1000);
                 webElements = driver.findElements(By.className("day-anchor"));
-                while (webElements.size() == 0) {
+                i=0;
+                while (webElements.size() == 0 || i != 10) {
                     webElements = driver.findElements(By.className("delay-light"));
+                    i++;
                 }
                 if(webElements.get(0).getText().split(" ")[0].length()==0)
                 {
@@ -76,9 +81,12 @@ public class Main {
                 row.createCell(++lastcell).setCellValue(webElements.get(0).getText().split(" ")[0]);
                 System.out.println(webElements.get(0).getText());
                 driver.get("https://www.google.ru/maps/dir/57.986497,56.2914518/58.0087631,56.1879164/@58.0014633,56.1731455,12z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
+                Thread.sleep(1000);
                 webElements = driver.findElements(By.className("delay-light"));
-                while (webElements.size() == 0) {
+                i=0;
+                while (webElements.size() == 0 || i!=10) {
                     webElements = driver.findElements(By.className("delay-light"));
+                    i++;
                 }
                 if(webElements.get(0).getText().split(" ")[0].length()==0)
                 {
@@ -90,9 +98,12 @@ public class Main {
                 row.createCell(++lastcell).setCellValue(webElements.get(0).getText().split(" ")[0]);
                 System.out.println(webElements.get(0).getText());
                 driver.get("https://www.google.ru/maps/dir/58.0338697,56.3240669/58.0087631,56.1879164/@58.0209894,56.1854751,12z/am=t/data=!3m1!4b1!4m3!4m2!3e0!5i1");
+                Thread.sleep(1000);
                 webElements = driver.findElements(By.className("delay-light"));
-                while (webElements.size() == 0) {
+                i = 0;
+                while (webElements.size() == 0||i!=10) {
                     webElements = driver.findElements(By.className("delay-light"));
+                    i++;
                 }
                 if(webElements.get(0).getText().split(" ")[0].length()==0)
                 {
@@ -113,7 +124,8 @@ public class Main {
                 e.printStackTrace();
                 driver.close();
             }
-            Thread.sleep(1000 * 60 * 60);
+            System.out.println("Program sleep : 1 h");
+            Thread.sleep(1000);
         }
     }
 }
