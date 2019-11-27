@@ -102,10 +102,9 @@ public class Main {
                 .withTimeout(50, TimeUnit.SECONDS)
                 .pollingEvery(10, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
-
         WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
-                return driver.findElements(locator).get(0);
+                return driver.findElement(locator);
             }
         });
 
