@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class Main {
 
@@ -51,7 +54,8 @@ public class Main {
         ChromeOptions opt = new ChromeOptions();
         opt.addArguments("headless");
         while (true) {
-            System.setProperty("webdriver.chrome.driver", "/home/samsung/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "/home/samsung/chromedriver"); //Linux
+//            System.setProperty("webdriver.chrome.driver", "G:\\chromedriver.exe"); //Win
             driver = new ChromeDriver(opt);
 //            driver = new ChromeDriver();
             try {
@@ -75,21 +79,28 @@ public class Main {
                 } else {
                     row.createCell(++lastcell).setCellValue(0);
                 }
+                i = 1;
                 for (String site : sites) {
-                    driver.get(site);
-                    Thread.sleep(1000);
-                    webElement = fluentWait(By.className("auto-route-form-view__route-title-primary"));
-                    row.createCell(++lastcell).setCellValue(webElement.getText().split(" ")[0]);
-                    System.out.println(webElement.getText());
+                    try {
+                        i++;
+                        driver.get(site);
+                        Thread.sleep(1000);
+                        webElement = fluentWait(By.className("auto-route-form-view__route-title-primary"));
+                        row.createCell(++lastcell).setCellValue(webElement.getText().split(" ")[0]);
+                        System.out.println(webElement.getText());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Error site - " + i);
+                    }
                 }
                 inputXlsx.close();
                 outXlsx = new FileOutputStream("res.xlsx");
                 res.write(outXlsx);
                 outXlsx.close();
                 res.close();
-                driver.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
                 driver.close();
             }
             System.out.println("Program sleep : 1 h");
@@ -98,18 +109,8 @@ public class Main {
     }
 
     public static WebElement fluentWait(final By locator) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(50, TimeUnit.SECONDS)
-                .pollingEvery(10, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return driver.findElement(locator);
-            }
-        });
-
-        return foo;
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement foo = wait.until(visibilityOfElementLocated(locator));
+        return driver.findElement(locator);
     }
-
-    ;
 }
